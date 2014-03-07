@@ -131,7 +131,12 @@ def highlight_string(s, *spanlists, **kw):
         (begin,end),color,list_id = i
         markers.append( (begin, color, True, list_id) )
         markers.append( (end, color, False, list_id) )
-    markers.sort(key=lambda (pos,color,start_end,list_id): pos)
+
+    def get_key(tup):
+        pos, color, start_end, list_id = tup
+        return pos
+
+    markers.sort(key=get_key)
 
     # produce list of (pos, color, layer) pairs
     codes = []
@@ -204,7 +209,7 @@ def colordiff(x, y, color_x=Colors.Cyan, color_y=Colors.Green, debug=False):
         g = ((i,e) for (i,e) in enumerate(it))
         def f():
             try:
-                return g.next()
+                return next(g)
             except StopIteration:
                 return (-1, None)
         return f

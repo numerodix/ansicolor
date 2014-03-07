@@ -9,6 +9,7 @@ setup(
     description='A library to produce ansi color output and colored highlighting and diffing',
     author='Martin Matusiak',
     author_email='numerodix@gmail.com',
+    url='https://github.com/numerodix/ansicolor',
 
     packages=[
         'ansicolor',
