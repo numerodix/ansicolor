@@ -5,7 +5,8 @@
 __all__ = ['Colors',
            'black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan',
            'white',
-           'colorize', 'colordiff', 'get_code', 'get_highlighter', 'highlight_string',
+           'colorize', 'colordiff', 'get_code', 'get_highlighter',
+           'highlight_string',
            'justify_formatted', 'strip_escapes', 'wrap_string',
            'set_term_title', 'write_out', 'write_err']
 
@@ -23,7 +24,7 @@ class Colors(object):
     @classmethod
     def new(cls, colorname):
         try:
-            _ = cls.colorlist
+            cls.colorlist
         except AttributeError:
             cls.colorlist = []
 
@@ -89,19 +90,21 @@ def get_code(color, bold=False, reverse=False):
         fmt = '0;7'
     elif bold:
         fmt = '0;1'
-    color = (color != None) and ';3%s' % color.id or ''
+    color = (color is not None) and ';3%s' % color.id or ''
 
     return '\033[' + fmt + color + 'm'
 
 def colorize(s, color, bold=False, reverse=False):
     '''Colorize the string'''
-    return "%s%s%s" % (get_code(color, bold=bold, reverse=reverse), s, get_code(None))
+    return ("%s%s%s" % (get_code(color, bold=bold, reverse=reverse),
+                        s, get_code(None)))
 
 def wrap_string(s, pos, color, bold=False, reverse=False):
     '''Colorize the string up to a position'''
     if _disabled:
-        if pos == 0: pos = 1
-        return s[:pos-1] + "|" + s[pos:]
+        if pos == 0:
+            pos = 1
+        return s[:pos - 1] + "|" + s[pos:]
 
     return "%s%s%s%s" % (get_code(color, bold=bold, reverse=reverse),
                          s[:pos],
@@ -120,17 +123,17 @@ def highlight_string(s, *spanlists, **kw):
     for spanlist in spanlists:
         get_id = lambda spanlist: spanlists.index(spanlist)
         get_color = lambda spanlist: get_highlighter(get_id(spanlist))
-        tuples.extend( [(span, get_color(spanlist), get_id(spanlist))
-                        for span in spanlist] )
+        tuples.extend([(span, get_color(spanlist), get_id(spanlist))
+                       for span in spanlist])
 
     # produce list of (pos,color,start_end,list_id) pairs
     # (begin, Red, True, list_id)   # start new color
     # (end, Red, False, list_id)    # end current color
     markers = []
     for i in tuples:
-        (begin,end),color,list_id = i
-        markers.append( (begin, color, True, list_id) )
-        markers.append( (end, color, False, list_id) )
+        (begin, end), color, list_id = i
+        markers.append((begin, color, True, list_id))
+        markers.append((end, color, False, list_id))
 
     def get_key(tup):
         pos, color, start_end, list_id = tup
@@ -145,21 +148,21 @@ def highlight_string(s, *spanlists, **kw):
         # stack invariant :  list_id1 < list_id2   =>   i1 < i2
         if start_end:
             inserted = False
-            for (i, (c,id)) in enumerate(stack):
+            for (i, (c, id)) in enumerate(stack):
                 if list_id < id:
-                    stack.insert(i, (color, list_id) )
+                    stack.insert(i, (color, list_id))
                     inserted = True
                     break
             if not inserted:
-                stack.append( (color, list_id) )
+                stack.append((color, list_id))
         else:
-            stack.remove( (color,list_id) )
+            stack.remove((color, list_id))
 
         cur_color = None
         if len(stack) > 0:
             (cur_color, _) = stack[-1]
 
-        codes.append( (pos, cur_color, len(stack)) )
+        codes.append((pos, cur_color, len(stack)))
 
     # apply codes to the string
     cursor = 0
@@ -185,11 +188,11 @@ def highlight_string(s, *spanlists, **kw):
             bold = True
             reverse = True
 
-        segments.append( s[cursor:pos] )
-        segments.append( get_code(color, bold=bold, reverse=reverse) )
+        segments.append(s[cursor:pos])
+        segments.append(get_code(color, bold=bold, reverse=reverse))
 
         cursor = pos
-    segments.append( s[cursor:] )
+    segments.append(s[cursor:])
 
     return ''.join(segments)
 
@@ -202,11 +205,11 @@ def colordiff(x, y, color_x=Colors.Cyan, color_y=Colors.Green, debug=False):
         sm = difflib.SequenceMatcher(None, x, y)
         seq = ''
         for match in sm.get_matching_blocks():
-            seq += x[match.a:match.a+match.size]
+            seq += x[match.a:match.a + match.size]
         return seq
 
     def make_generator(it):
-        g = ((i,e) for (i,e) in enumerate(it))
+        g = ((i, e) for (i, e) in enumerate(it))
         def f():
             try:
                 return next(g)
@@ -247,24 +250,24 @@ def colordiff(x, y, color_x=Colors.Cyan, color_y=Colors.Green, debug=False):
         #   -> added in new
         elif s == a:
             log('+%s' % b)
-            y_spans.append( (bid,bid+1) )
+            y_spans.append((bid, bid + 1))
             (bid, b) = it_y()
         # character the same in new and common
         #   -> removed in orig
         elif s == b:
             log('-%s' % a)
-            x_spans.append( (aid,aid+1) )
+            x_spans.append((aid, aid + 1))
             (aid, a) = it_x()
         # character not the same (eg. case change)
         #   -> removed in orig and added in new
         elif a != b:
             if a:
                 log('-%s' % a)
-                x_spans.append( (aid,aid+1) )
+                x_spans.append((aid, aid + 1))
                 (aid, a) = it_x()
             if b:
-                log('+%s'% b)
-                y_spans.append( (bid,bid+1) )
+                log('+%s' % b)
+                y_spans.append((bid, bid + 1))
                 (bid, b) = it_y()
 
     x_fmt = highlight_string(x, x_spans, reverse=True, color=color_x)
@@ -275,7 +278,7 @@ def colordiff(x, y, color_x=Colors.Cyan, color_y=Colors.Green, debug=False):
 def justify_formatted(s, justify_func, width):
     '''Justify formatted string to width using function (eg. string.ljust)'''
     dx = len(s) - len(strip_escapes(s))
-    return justify_func(s, width+dx)
+    return justify_func(s, width + dx)
 
 def strip_escapes(s):
     '''Strip escapes from string'''
@@ -311,31 +314,31 @@ if __name__ == '__main__':
 
         lst = []
 
-        lst.extend([ [], ['>>> Without colors'], [] ])
+        lst.extend([[], ['>>> Without colors'], []])
         line = []
-        line.append( colorize("Standard".ljust(width),      None) )
-        line.append( colorize("Bold".ljust(width),          None, bold=True) )
-        line.append( colorize("Reverse".ljust(width),       None, reverse=True) )
-        line.append( colorize("Bold & Rev".ljust(width),    None, bold=True, reverse=True) )
+        line.append(colorize("Standard".ljust(width), None))
+        line.append(colorize("Bold".ljust(width), None, bold=True))
+        line.append(colorize("Reverse".ljust(width), None, reverse=True))
+        line.append(colorize("Bold & Rev".ljust(width), None, bold=True, reverse=True))  # noqa
         lst.append(line)
 
-        lst.extend([ [], ['>>> Using colors'], [] ])
+        lst.extend([[], ['>>> Using colors'], []])
         for color in Colors.iter():
             line = []
-            line.append( colorize(color.__name__.ljust(width), color) )
-            line.append( colorize(color.__name__.ljust(width), color, bold=True) )
-            line.append( colorize(color.__name__.ljust(width), color, reverse=True) )
-            line.append( colorize(color.__name__.ljust(width), color, bold=True, reverse=True) )
+            line.append(colorize(color.__name__.ljust(width), color))
+            line.append(colorize(color.__name__.ljust(width), color, bold=True))  # noqa
+            line.append(colorize(color.__name__.ljust(width), color, reverse=True))  # noqa
+            line.append(colorize(color.__name__.ljust(width), color, bold=True, reverse=True))  # noqa
             lst.append(line)
 
-        lst.extend([ [], ['>>> Using highlighting colors'], [] ])
+        lst.extend([[], ['>>> Using highlighting colors'], []])
         for color in Colors.iter():
             color = get_highlighter(color.id)
             line = []
-            line.append( colorize(color.__name__.ljust(width), color) )
-            line.append( colorize(color.__name__.ljust(width), color, bold=True) )
-            line.append( colorize(color.__name__.ljust(width), color, reverse=True) )
-            line.append( colorize(color.__name__.ljust(width), color, bold=True, reverse=True) )
+            line.append(colorize(color.__name__.ljust(width), color))
+            line.append(colorize(color.__name__.ljust(width), color, bold=True))  # noqa
+            line.append(colorize(color.__name__.ljust(width), color, reverse=True))  # noqa
+            line.append(colorize(color.__name__.ljust(width), color, bold=True, reverse=True))  # noqa
             lst.append(line)
 
         for line in lst:
@@ -363,7 +366,7 @@ fffeeedddcccbbbaaabbbcccdddeeefff
                     spanlist.append(m.span())
                 spanlists.append(spanlist)
             s = highlight_string(s, *spanlists)
-            for (i,rx) in enumerate(rxs):
+            for (i, rx) in enumerate(rxs):
                 color = get_highlighter(i)
                 color = colorize(color.__name__.ljust(10), color)
                 write_out('Regex %s: %s %s\n' % (i, color, rx))
