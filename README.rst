@@ -10,6 +10,11 @@ ansicolor
 .. image:: https://pypip.in/wheel/ansicolor/badge.png
     :target: https://pypi.python.org/pypi/ansicolor/
 
+Runs on:
+
+- CPython 2.6, 2.7, 3.2, 3.3
+- PyPy
+
 
 Installation
 ------------
