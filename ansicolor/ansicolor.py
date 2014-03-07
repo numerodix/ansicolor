@@ -209,7 +209,7 @@ def colordiff(x, y, color_x=Colors.Cyan, color_y=Colors.Green, debug=False):
         g = ((i,e) for (i,e) in enumerate(it))
         def f():
             try:
-                return g.next()
+                return next(g)
             except StopIteration:
                 return (-1, None)
         return f
