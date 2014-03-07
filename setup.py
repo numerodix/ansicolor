@@ -6,7 +6,7 @@ import ansicolor
 setup(
     name='ansicolor',
     version=ansicolor.__version__,
-    description='Ansi color output library',
+    description='A library to produce ansi color output and colored highlighting and diffing',
     author='Martin Matusiak',
     author_email='numerodix@gmail.com',
 
