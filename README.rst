@@ -17,7 +17,7 @@ Introduction
 ------------
 
 ``ansicolor`` is a library that makes it easy to use ansi color markup in command
-line programs. `API documentation`_.
+line programs.
 
 
 Installation
@@ -104,6 +104,7 @@ Take a look at the ``demos`` to see what's possible.
     $ python -m ansicolor.demos --highlight
     $ python -m ansicolor.demos --diff
 
+Also see the `API documentation`_.
 
 
 .. _`API documentation`: https://ansicolor.readthedocs.org/
