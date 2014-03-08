@@ -91,6 +91,7 @@ def demo_diff():
     display_diff('abcdfghjqz', 'abcdefgijkrxyz')
 
 
+
 if __name__ == '__main__':
     try:
         action = sys.argv[1]
