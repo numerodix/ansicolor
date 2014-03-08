@@ -103,3 +103,8 @@ Take a look at the ``demos`` to see what's possible.
     $ python -m ansicolor.demos --color
     $ python -m ansicolor.demos --highlight
     $ python -m ansicolor.demos --diff
+
+Also see the `API documentation`_.
+
+
+.. _`API documentation`: https://ansicolor.readthedocs.org/

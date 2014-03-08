@@ -13,7 +13,6 @@
 # serve to show the default.
 
 import sys
-import os
 
 try:
     import ansicolor
@@ -56,7 +55,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = ansicolor.__name__
-copyright = u'2014, %s' % author
+copyright = u'2010-2014, %s' % author
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -276,7 +275,7 @@ texinfo_documents = [
 epub_title = ansicolor.__name__
 epub_author = author
 epub_publisher = author
-epub_copyright = u'2014, %s' % author
+epub_copyright = u'2010-2014, %s' % author
 
 # The basename for the epub file. It defaults to the project name.
 #epub_basename = u'ansicolor'

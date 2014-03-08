@@ -13,6 +13,7 @@ __all__ = ['Colors',
 
 import difflib
 import os
+import re
 import sys
 
 # Don't write escapes to dumb terminals
@@ -53,7 +54,14 @@ Colors.new("White")
 def make_func(color):
     def f(s, bold=False, reverse=False):
         return colorize(s, color, bold=bold, reverse=reverse)
-    f.__doc__ = "Colorize string with %s" % color.__name__.lower()
+    f.__doc__ = """
+    Colorize string in %s
+
+    :param string s: The string to colorize.
+    :param bool bold: Whether to mark up in bold.
+    :param bool reverse: Whether to mark up in reverse video.
+    :rtype: string
+    """ % color.__name__.lower()
     return f
 
 for color in Colors.iter():
@@ -79,7 +87,16 @@ def get_highlighter(colorid):
     return highlight_map[colorid % len(highlights)]
 
 def get_code(color, bold=False, reverse=False):
-    '''Return escape code for styling with color, bold or reverse'''
+    """Returns the escape code for styling with the given color,
+    in bold and/or reverse.
+
+    :param color: The color to use.
+    :type color: :class:`Colors` class
+    :param bool bold: Whether to mark up in bold.
+    :param bool reverse: Whether to mark up in reverse video.
+    :rtype: string
+    """
+
     if _disabled:
         return ""
 
@@ -95,7 +112,16 @@ def get_code(color, bold=False, reverse=False):
     return '\033[' + fmt + color + 'm'
 
 def colorize(s, color, bold=False, reverse=False):
-    '''Colorize the string'''
+    """
+    Colorize string with the color given.
+
+    :param string s: The string to colorize.
+    :param color: The color to use.
+    :type color: :class:`Colors` class
+    :param bool bold: Whether to mark up in bold.
+    :param bool reverse: Whether to mark up in reverse video.
+    :rtype: string
+    """
     return ("%s%s%s" % (get_code(color, bold=bold, reverse=reverse),
                         s, get_code(None)))
 
@@ -197,7 +223,22 @@ def highlight_string(s, *spanlists, **kw):
     return ''.join(segments)
 
 def colordiff(x, y, color_x=Colors.Cyan, color_y=Colors.Green, debug=False):
-    """Format diff of inputs using longest common subsequence"""
+    """
+    Formats a diff of two strings using the longest common subsequence by
+    highlighting characters that differ between the strings.
+
+    Returns the strings `x` and `y` with highlighting.
+
+    :param string x: The first string.
+    :param string y: The second string.
+    :param color_x: The color to use for the first string.
+    :type color_x: :class:`Colors` class
+    :param color_y: The color to use for the second string.
+    :type color_y: :class:`Colors` class
+    :param bool debug: Whether to print debug output underway.
+    :rtype: tuple
+    """
+
     def compute_seq(x, y):
         """SequenceMatcher computes the longest common contiguous subsequence
         rather than the longest common subsequence, but this just causes the
@@ -281,8 +322,12 @@ def justify_formatted(s, justify_func, width):
     return justify_func(s, width + dx)
 
 def strip_escapes(s):
-    '''Strip escapes from string'''
-    import re
+    """Strips escapes from the string.
+
+    :param string s: The string.
+    :rtype: string
+    """
+
     return re.sub('\033[[](?:(?:[0-9]*;)*)(?:[0-9]*m)', '', s)
 
 ## Output functions
