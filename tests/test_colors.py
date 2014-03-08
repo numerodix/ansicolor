@@ -85,6 +85,9 @@ def test_colordiff():
 
 
 def test_justify_formatted():
+    def rjust(s, width):
+        return s.rjust(width)
+
     assert justify_formatted(
-        red("hi"), string.rjust, 10
+        red("hi"), rjust, 10
     ) == "        " + red("hi")
