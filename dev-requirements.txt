@@ -1,4 +1,6 @@
 cheesecake
 flake8
+pytest
+sphinx
 tox
 wheel
