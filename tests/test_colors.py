@@ -1,5 +1,3 @@
-import string
-
 from ansicolor import Colors
 from ansicolor import blue
 from ansicolor import colordiff
