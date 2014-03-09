@@ -28,8 +28,8 @@ Installation
     $ pip install ansicolor
 
 
-Getting started
----------------
+Documenation
+------------
 
 Read the `documentation`_ on Read the Docs!
 
