@@ -24,6 +24,8 @@ If I want to be able to pass a color as an argument I can also use the
 
 .. literalinclude:: ../snippets/getting_started_2.py
 
+.. figure:: ../snippets/getting_started_2.png
+
 
 I can also apply color on a portion of a string:
 
