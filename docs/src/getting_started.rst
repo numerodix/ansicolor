@@ -1,5 +1,5 @@
-Getting started
-===============
+Getting started with colors
+===========================
 
 To highlight using colors:
 
