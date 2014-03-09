@@ -6,10 +6,20 @@
 Welcome to ansicolor's documentation!
 =====================================
 
+User guide
+----------
+
 .. toctree::
    :maxdepth: 4
 
-   README.rst
+   src/getting_started.rst
+
+API Documentation
+-----------------
+
+.. toctree::
+   :maxdepth: 4
+
    ansicolor
 
 
