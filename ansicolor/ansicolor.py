@@ -143,7 +143,7 @@ def get_code(color, bold=False, reverse=False):
 
 def colorize(s, color, bold=False, reverse=False):
     """
-    Colorize string with the color given.
+    Colorize a string with the color given.
 
     :param string s: The string to colorize.
     :param color: The color to use.
@@ -179,6 +179,7 @@ def wrap_string(s, pos, color, bold=False, reverse=False):
                          get_code(None),
                          s[pos:])
 
+
 def highlight_string(s, *spanlists, **kw):
     """
     Highlight spans in a string using a list of (begin, end) pairs. Each
@@ -187,7 +188,7 @@ def highlight_string(s, *spanlists, **kw):
 
     :param string s: The string to highlight
     :param list spanlists: A list of tuples on the form ``[(begin, end)*]*``
-    :param kw: can set bold, reverse, color or nocolor
+    :param kw: May include: `bold`, `reverse`, `color` and `nocolor`
     :rtype: string
     """
 

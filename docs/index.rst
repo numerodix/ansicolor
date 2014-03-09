@@ -10,6 +10,7 @@ User guide
    src/getting_started.rst
    src/using_highlights.rst
    src/colored_diffs.rst
+   src/marked_up_strings.rst
 
 API documentation
 -----------------

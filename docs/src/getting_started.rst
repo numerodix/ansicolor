@@ -32,19 +32,3 @@ I can also apply color on a portion of a string:
 .. literalinclude:: ../snippets/getting_started_3.py
 
 .. figure:: ../snippets/getting_started_3.png
-
-
-Sometimes I may have a string that contains markup and I'll want to do something
-with it that concerns only the text, so I can strip the markup:
-
-.. code:: python
-
-    >>> from ansicolor import red
-    >>> from ansicolor import strip_escapes
-    >>> from ansicolor import yellow
-
-    >>> message = "My favorite colors are %s and %s" % (yellow("yellow"), red("red"))
-    >>> print("The length of this text is not: %d" % len(message))
-    The length of this text is not: 67
-    >>> print("The length of this text is: %d" % len(strip_escapes(message)))
-    The length of this text is: 37
