@@ -368,7 +368,8 @@ def colordiff(x, y, color_x=Colors.Cyan, color_y=Colors.Green, debug=False):
 
 def justify_formatted(s, justify_func, width):
     """
-    Justify a formatted string to a width using a function (eg. ``string.ljust``).
+    Justify a formatted string to a width using a function
+    (eg. ``string.ljust``).
 
     :param string s: The formatted string.
     :param justify_func: The justify function.
