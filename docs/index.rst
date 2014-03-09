@@ -6,11 +6,10 @@
 Welcome to ansicolor's documentation!
 =====================================
 
-Contents:
-
 .. toctree::
    :maxdepth: 4
 
+   README.rst
    ansicolor
 
 
@@ -20,4 +19,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
