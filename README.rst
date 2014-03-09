@@ -29,7 +29,7 @@ Installation
 
 
 Documentation
-------------
+-------------
 
 Read the `documentation`_ on Read the Docs!
 
