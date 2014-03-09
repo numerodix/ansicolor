@@ -25,19 +25,19 @@ class Colors(object):
     @classmethod
     def new(cls, colorname):
         try:
-            cls.colorlist
+            cls._colorlist
         except AttributeError:
-            cls.colorlist = []
+            cls._colorlist = []
 
         newcls = type.__new__(type, colorname, (object,), {})
-        newcls.id = len(cls.colorlist)
+        newcls.id = len(cls._colorlist)
 
-        cls.colorlist.append(newcls)
+        cls._colorlist.append(newcls)
         setattr(cls, colorname, newcls)
 
     @classmethod
     def iter(cls):
-        for color in cls.colorlist:
+        for color in cls._colorlist:
             yield color
 
 ## Define Colors members
