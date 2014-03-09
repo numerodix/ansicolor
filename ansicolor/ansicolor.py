@@ -7,7 +7,7 @@ import re
 import sys
 
 
-__all__ = [
+__all__ = [  # noqa
     'black',
     'blue',
     'cyan',
