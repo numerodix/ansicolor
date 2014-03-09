@@ -9,7 +9,7 @@ Welcome to ansicolor's documentation!
 .. toctree::
    :maxdepth: 4
 
-   README.rst
+   src/getting_started.rst
    ansicolor
 
 
