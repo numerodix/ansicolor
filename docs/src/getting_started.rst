@@ -22,22 +22,14 @@ to reset the color back to the default:
 If I want to be able to pass a color as an argument I can also use the
 ``colorize`` function:
 
-.. code:: python
-
-    from ansicolor import Colors
-    from ansicolor import colorize
-
-    print(colorize("I'm blue", Colors.Blue))
+.. literalinclude:: ../snippets/getting_started_2.py
 
 
 I can also apply color on a portion of a string:
 
-.. code:: python
+.. literalinclude:: ../snippets/getting_started_3.py
 
-    from ansicolor import Colors
-    from ansicolor import wrap_string
-
-    print(wrap_string("I'm blue, said the policeman.", 8, Colors.Blue))
+.. figure:: ../snippets/getting_started_3.png
 
 
 Sometimes I may have a string that contains markup and I'll want to do something
