@@ -1,20 +1,40 @@
 # Author: Martin Matusiak <numerodix@gmail.com>
 # Licensed under the GNU Public License, version 3.
 
-
-__all__ = ['Colors',
-           'black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan',
-           'white',
-           'colorize', 'colordiff', 'get_code', 'get_highlighter',
-           'highlight_string',
-           'justify_formatted', 'strip_escapes', 'wrap_string',
-           'set_term_title', 'write_out', 'write_err']
-
-
 import difflib
 import os
 import re
 import sys
+
+
+__all__ = [
+    'black',
+    'blue',
+    'cyan',
+    'green',
+    'magenta',
+    'red',
+    'white',
+    'yellow',
+
+    'colorize',
+    'wrap_string',
+    'get_code',
+
+    'highlight_string',
+    'get_highlighter',
+
+    'strip_escapes',
+    'justify_formatted',
+
+    'colordiff',
+    'set_term_title',
+    'write_out',
+    'write_err',
+
+    'Colors',
+]
+
 
 # Don't write escapes to dumb terminals
 _disabled = (not os.environ.get("TERM")) or (os.environ.get("TERM") == "dumb")
@@ -50,6 +70,7 @@ Colors.new("Magenta")
 Colors.new("Cyan")
 Colors.new("White")
 
+
 ## Define coloring shorthands
 def make_func(color):
     def f(s, bold=False, reverse=False):
@@ -67,6 +88,7 @@ def make_func(color):
 for color in Colors.iter():
     globals()[color.__name__.lower()] = make_func(color)
 
+
 ## Define highlighting colors
 highlights = [
     Colors.Green,
@@ -81,13 +103,21 @@ highlight_map = {}
 for (n, h) in enumerate(highlights):
     highlight_map[n] = [color for color in Colors.iter() if h == color].pop()
 
+
 ## Coloring functions
 def get_highlighter(colorid):
-    '''Map a color index to a highlighting color'''
+    """
+    Map a color index to a highlighting color.
+
+    :param int colorid: The index.
+    :rtype: :class:`Colors`
+    """
+
     return highlight_map[colorid % len(highlights)]
 
 def get_code(color, bold=False, reverse=False):
-    """Returns the escape code for styling with the given color,
+    """
+    Returns the escape code for styling with the given color,
     in bold and/or reverse.
 
     :param color: The color to use.
@@ -122,11 +152,23 @@ def colorize(s, color, bold=False, reverse=False):
     :param bool reverse: Whether to mark up in reverse video.
     :rtype: string
     """
+
     return ("%s%s%s" % (get_code(color, bold=bold, reverse=reverse),
                         s, get_code(None)))
 
 def wrap_string(s, pos, color, bold=False, reverse=False):
-    '''Colorize the string up to a position'''
+    """
+    Colorize the string up to a position.
+
+    :param string s: The string to colorize.
+    :param int pos: The position at which to stop.
+    :param color: The color to use.
+    :type color: :class:`Colors` class
+    :param bool bold: Whether to mark up in bold.
+    :param bool reverse: Whether to mark up in reverse video.
+    :rtype: string
+    """
+
     if _disabled:
         if pos == 0:
             pos = 1
@@ -138,12 +180,17 @@ def wrap_string(s, pos, color, bold=False, reverse=False):
                          s[pos:])
 
 def highlight_string(s, *spanlists, **kw):
-    '''Highlight spans in a string
-    @spanlists is on the form [(begin,end)*]*
-    @kw can set bold, reverse, color or nocolor
-    Each spanlist gets a new color
-    Spans can overlap up to 4 layers
-    '''
+    """
+    Highlight spans in a string using a list of (begin, end) pairs. Each
+    list is treated as a layer of highlighting. Up to four layers of
+    highlighting are supported.
+
+    :param string s: The string to highlight
+    :param list spanlists: A list of tuples on the form ``[(begin, end)*]*``
+    :param kw: can set bold, reverse, color or nocolor
+    :rtype: string
+    """
+
     # pair span with color and id of the list -> (span, color, list_id)
     tuples = []
     for spanlist in spanlists:
@@ -221,6 +268,8 @@ def highlight_string(s, *spanlists, **kw):
     segments.append(s[cursor:])
 
     return ''.join(segments)
+
+
 
 def colordiff(x, y, color_x=Colors.Cyan, color_y=Colors.Green, debug=False):
     """
@@ -316,13 +365,23 @@ def colordiff(x, y, color_x=Colors.Cyan, color_y=Colors.Green, debug=False):
 
     return x_fmt, y_fmt
 
+
 def justify_formatted(s, justify_func, width):
-    '''Justify formatted string to width using function (eg. string.ljust)'''
+    """
+    Justify a formatted string to a width using a function (eg. ``string.ljust``).
+
+    :param string s: The formatted string.
+    :param justify_func: The justify function.
+    :param int width: The width at which to justify.
+    :rtype: string
+    """
     dx = len(s) - len(strip_escapes(s))
     return justify_func(s, width + dx)
 
+
 def strip_escapes(s):
-    """Strips escapes from the string.
+    """
+    Strips escapes from the string.
 
     :param string s: The string.
     :rtype: string
@@ -330,9 +389,15 @@ def strip_escapes(s):
 
     return re.sub('\033[[](?:(?:[0-9]*;)*)(?:[0-9]*m)', '', s)
 
+
 ## Output functions
 def set_term_title(s):
-    '''Set the title of a terminal window'''
+    """
+    Set the title of a terminal window.
+
+    :param string s: The title.
+    """
+
     if not _disabled:
         sys.stdout.write("\033]2;%s\007" % s)
 
@@ -345,9 +410,19 @@ def write_to(target, s):
     target.flush()
 
 def write_out(s):
-    '''Write a string to stdout, strip escapes if output is a pipe'''
+    """
+    Write a string to ``sys.stdout``, strip escapes if output is a pipe.
+
+    :param string s: The title.
+    """
+
     write_to(sys.stdout, s)
 
 def write_err(s):
-    '''Write a string to stderr, strip escapes if output is a pipe'''
+    """
+    Write a string to ``sys.stderr``, strip escapes if output is a pipe.
+
+    :param string s: The title.
+    """
+
     write_to(sys.stderr, s)
