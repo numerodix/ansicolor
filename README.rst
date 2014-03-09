@@ -31,7 +31,7 @@ Installation
 Getting started
 ---------------
 
-Read the `documentation` on Read the Docs!
+Read the `documentation`_ on Read the Docs!
 
 
 Going further
