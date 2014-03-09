@@ -31,7 +31,7 @@ Installation
 Getting started
 ---------------
 
-To get some simple color output:
+To highlight using colors:
 
 .. code:: python
 

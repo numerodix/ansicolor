@@ -4,22 +4,10 @@ ansicolor package
 Submodules
 ----------
 
-ansicolor.ansicolor module
---------------------------
+.. toctree::
 
-.. automodule:: ansicolor.ansicolor
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-ansicolor.demos module
-----------------------
-
-.. automodule:: ansicolor.demos
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
+   ansicolor.ansicolor
+   ansicolor.demos
 
 Module contents
 ---------------

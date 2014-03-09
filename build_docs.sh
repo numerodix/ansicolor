@@ -1,6 +1,6 @@
 #!/bin/bash
 
 rm docs/ansicolor.rst docs/modules.rst
-sphinx-apidoc -o docs ansicolor
+sphinx-apidoc --separate --output-dir docs ansicolor
 cd docs && \
     make html
