@@ -71,7 +71,9 @@ def test_wrap_string():
 
 
 def test_strip_escapes():
-    assert "Hi there" == strip_escapes(wrap_string("Hi there", 3, Colors.Red))
+    assert "Hi there" == strip_escapes(
+        colorize("Hi there", Colors.Red, start=3)
+    )
 
     assert strip_escapes(
         colorize("Hi", None, bold=True) +
