@@ -5,6 +5,7 @@ import difflib
 import os
 import re
 import sys
+import warnings
 
 
 __all__ = [  # noqa
@@ -181,7 +182,12 @@ def wrap_string(s, pos, color, bold=False, reverse=False):
     :param bool bold: Whether to mark up in bold.
     :param bool reverse: Whether to mark up in reverse video.
     :rtype: string
+
+    .. deprecated:: 0.2.2
+       This function has been deprecated in favor of :func:`colorize`.
     """
+
+    warnings.warn("wrap_string is deprecated", PendingDeprecationWarning, 2)
 
     if _disabled:
         if pos == 0:
