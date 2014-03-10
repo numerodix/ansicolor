@@ -44,12 +44,21 @@ def test_highlights():
     assert Colors.Yellow == get_highlighter(1)
 
 
-def test_colorize():
+def test_colorize1():
     assert (
         get_code(Colors.Red)
         + "Hi there"
         + get_code(None)
     ) == colorize("Hi there", Colors.Red)
+
+def test_colorize2():
+    assert (
+        "H"
+        + get_code(Colors.Red)
+        + "i ther"
+        + get_code(None)
+        + "e"
+    ) == colorize("Hi there", Colors.Red, start=1, end=7)
 
 
 def test_wrap_string():

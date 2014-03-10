@@ -141,7 +141,8 @@ def get_code(color, bold=False, reverse=False):
 
     return '\033[' + fmt + color + 'm'
 
-def colorize(s, color, bold=False, reverse=False):
+
+def colorize(s, color, bold=False, reverse=False, start=None, end=None):
     """
     Colorize a string with the color given.
 
@@ -150,11 +151,24 @@ def colorize(s, color, bold=False, reverse=False):
     :type color: :class:`Colors` class
     :param bool bold: Whether to mark up in bold.
     :param bool reverse: Whether to mark up in reverse video.
+    :param int start: Index at which to start coloring.
+    :param int end: Index at which to end coloring.
     :rtype: string
     """
 
-    return ("%s%s%s" % (get_code(color, bold=bold, reverse=reverse),
-                        s, get_code(None)))
+    start = start if start else 0
+    end = end if end else len(s)
+
+    before = s[:start]
+    between = s[start:end]
+    after = s[end:]
+
+    return ("%s%s%s%s%s" % (before,
+                            get_code(color, bold=bold, reverse=reverse),
+                            between,
+                            get_code(None),
+                            after))
+
 
 def wrap_string(s, pos, color, bold=False, reverse=False):
     """
