@@ -1,6 +1,7 @@
 ansicolor
 =========
 
+
 User guide
 ----------
 
@@ -12,6 +13,7 @@ User guide
    src/colored_diffs.rst
    src/marked_up_strings.rst
 
+
 API documentation
 -----------------
 
@@ -19,6 +21,15 @@ API documentation
    :maxdepth: 4
 
    ansicolor
+
+
+Project documentation
+---------------------
+
+.. toctree::
+   :maxdepth: 4
+
+   src/changes.rst
 
 
 Indices and tables
