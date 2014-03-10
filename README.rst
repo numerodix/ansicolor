@@ -1,8 +1,8 @@
 ansicolor
 =========
 
-.. image:: https://pypip.in/v/ansicolor/badge.png
-    :target: https://pypi.python.org/pypi/ansicolor/
+.. image:: https://badge.fury.io/py/ansicolor.png
+        :target: https://badge.fury.io/py/ansicolor
 
 .. image:: https://travis-ci.org/numerodix/ansicolor.png?branch=master
     :target: https://travis-ci.org/numerodix/ansicolor
