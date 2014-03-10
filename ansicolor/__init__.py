@@ -32,5 +32,5 @@ __all__ = [
 ]
 
 __major_version__ = "0.2"
-__release__ = "1"
+__release__ = "2"
 __version__ = "%s.%s" % (__major_version__, __release__)
