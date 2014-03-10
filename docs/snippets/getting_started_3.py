@@ -1,4 +1,4 @@
 from ansicolor import Colors
-from ansicolor import wrap_string
+from ansicolor import colorize
 
-print(wrap_string("I'm blue, said the smurf.", 8, Colors.Blue))
+print(colorize('''"I'm blue", said the smurf.''', Colors.Blue, start=1, end=9))
