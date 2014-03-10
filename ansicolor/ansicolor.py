@@ -187,7 +187,7 @@ def wrap_string(s, pos, color, bold=False, reverse=False):
        This function has been deprecated in favor of :func:`colorize`.
     """
 
-    warnings.warn("wrap_string is deprecated", PendingDeprecationWarning, 2)
+    warnings.warn("wrap_string is deprecated", DeprecationWarning, 2)
 
     if _disabled:
         if pos == 0:
