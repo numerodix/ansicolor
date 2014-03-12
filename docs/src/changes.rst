@@ -2,6 +2,12 @@ Release notes
 =============
 
 
+0.2.3
+-----
+
+- :func:`ansicolor.highlight_string` accepts a new kwarg `colors`. `color` has been
+  deprecated.
+
 0.2.2
 -----
 

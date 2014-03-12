@@ -48,7 +48,8 @@ def demo_color():
             write_out('%s  ' % item)
         write_out("\n")
 
-def demo_highlight():
+
+def _demo_highlight(reverse=False):
     rxs = [
         '(b+).*\\1',
         '(c+).*\\1',
@@ -61,21 +62,37 @@ fffeeedddcccbbbaaabbbcccdddeeefff
 """
     def display(rxs, s):
         spanlists = []
-        for rx in rxs:
+        colors = []
+
+        for i, rx in enumerate(rxs):
             spanlist = []
             for m in re.finditer(rx, s):
                 spanlist.append(m.span())
             spanlists.append(spanlist)
-        s = highlight_string(s, *spanlists)
+            colors.append(get_highlighter(i))
+
+        if reverse:
+            colors.reverse()
+
+        s = highlight_string(s, *spanlists, colors=colors)
+
         for (i, rx) in enumerate(rxs):
             color = get_highlighter(i)
             color = colorize(color.__name__.ljust(10), color)
             write_out('Regex %s: %s %s\n' % (i, color, rx))
+
         write_out(s)
 
     for i in range(0, len(rxs) + 1):
         write_out('\n')
         display(rxs[:i], s)
+
+def demo_highlight():
+    _demo_highlight()
+
+def demo_highlight_reverse():
+    _demo_highlight(reverse=True)
+
 
 def demo_diff():
     def display_diff(s, t):
@@ -103,5 +120,7 @@ if __name__ == '__main__':
         demo_color()
     elif action == '--highlight':
         demo_highlight()
+    elif action == '--highlight-reverse':
+        demo_highlight_reverse()
     elif action == '--diff':
         demo_diff()

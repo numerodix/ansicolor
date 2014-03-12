@@ -208,17 +208,24 @@ def highlight_string(s, *spanlists, **kw):
 
     :param string s: The string to highlight
     :param list spanlists: A list of tuples on the form ``[(begin, end)*]*``
-    :param kw: May include: `bold`, `reverse`, `color` and `nocolor`
+    :param kw: May include: `bold`, `reverse`, `color`, `colors` and `nocolor`
     :rtype: string
+
+    .. deprecated:: 0.2.3
+       The `color` parameter has been deprecated in favor of `colors`.
     """
+
+    colors = kw.get('colors', [])
 
     # pair span with color and id of the list -> (span, color, list_id)
     tuples = []
-    for spanlist in spanlists:
-        get_id = lambda spanlist: spanlists.index(spanlist)
-        get_color = lambda spanlist: get_highlighter(get_id(spanlist))
-        tuples.extend([(span, get_color(spanlist), get_id(spanlist))
-                       for span in spanlist])
+    for id, spanlist in enumerate(spanlists):
+        try:
+            color = colors[id]
+        except IndexError:
+            color = get_highlighter(id)
+
+        tuples.extend([(span, color, id) for span in spanlist])
 
     # produce list of (pos,color,start_end,list_id) pairs
     # (begin, Red, True, list_id)   # start new color
@@ -269,6 +276,7 @@ def highlight_string(s, *spanlists, **kw):
         if color:
             if kw.get('color'):
                 color = kw.get('color')
+                warnings.warn("color is deprecated", DeprecationWarning, 2)
             elif kw.get('nocolor'):
                 color = None
             bold = kw.get('bold') or bold
@@ -289,7 +297,6 @@ def highlight_string(s, *spanlists, **kw):
     segments.append(s[cursor:])
 
     return ''.join(segments)
-
 
 
 def colordiff(x, y, color_x=Colors.Cyan, color_y=Colors.Green, debug=False):
