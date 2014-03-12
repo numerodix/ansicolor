@@ -388,8 +388,8 @@ def colordiff(x, y, color_x=Colors.Cyan, color_y=Colors.Green, debug=False):
                 y_spans.append((bid, bid + 1))
                 (bid, b) = it_y()
 
-    x_fmt = highlight_string(x, x_spans, reverse=True, color=color_x)
-    y_fmt = highlight_string(y, y_spans, reverse=True, color=color_y)
+    x_fmt = highlight_string(x, x_spans, reverse=True, colors=[color_x])
+    y_fmt = highlight_string(y, y_spans, reverse=True, colors=[color_y])
 
     return x_fmt, y_fmt
 
