@@ -2,6 +2,11 @@ Release notes
 =============
 
 
+0.2.4
+-----
+
+- First version supporting Python 3.4!
+
 0.2.3
 -----
 
