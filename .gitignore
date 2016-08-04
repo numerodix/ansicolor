@@ -1,6 +1,7 @@
-build/
-docs/_build/
-dist/
 *.egg-info/
 *.pyc
+.cache/
 .tox/
+build/
+dist/
+docs/_build/
