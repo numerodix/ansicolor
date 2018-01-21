@@ -8,6 +8,8 @@ from ansicolor import justify_formatted
 from ansicolor import red
 from ansicolor import strip_escapes
 from ansicolor import wrap_string
+from ansicolor import get_code_v2
+from ansicolor import colorize_v2
 
 
 def test_codes():
@@ -100,3 +102,54 @@ def test_justify_formatted():
     assert justify_formatted(
         red("hi"), rjust, 10
     ) == "        " + red("hi")
+
+
+def test_codes_v2():
+    # reset code
+    assert '\033[0m' == get_code_v2(None)
+
+    # plain color codes
+    assert '\033[0;30m' == get_code_v2(Colors.Black)
+    assert '\033[0;31m' == get_code_v2(Colors.Red)
+    assert '\033[0;32m' == get_code_v2(Colors.Green)
+    assert '\033[0;33m' == get_code_v2(Colors.Yellow)
+    assert '\033[0;34m' == get_code_v2(Colors.Blue)
+    assert '\033[0;35m' == get_code_v2(Colors.Magenta)
+    assert '\033[0;36m' == get_code_v2(Colors.Cyan)
+    assert '\033[0;37m' == get_code_v2(Colors.White)
+
+    # bold, underline, blink, reverse color
+    assert '\033[1;31m' == get_code_v2(Colors.Red, bold=True)
+    assert '\033[4;31m' == get_code_v2(Colors.Red, underline=True)
+    assert '\033[5;31m' == get_code_v2(Colors.Red, blink=True)
+    assert '\033[7;31m' == get_code_v2(Colors.Red, reverse=True)
+
+    # mixed color
+    assert '\033[1;4;31m' == get_code_v2(Colors.Red, bold=True, underline=True)
+    assert '\033[1;5;31m' == get_code_v2(Colors.Red, bold=True, blink=True)
+    assert '\033[1;7;31m' == get_code_v2(Colors.Red, bold=True, reverse=True)
+    
+    assert '\033[4;5;31m' == get_code_v2(Colors.Red, underline=True, blink=True)
+    assert '\033[4;7;31m' == get_code_v2(Colors.Red, underline=True, reverse=True)
+    
+    assert '\033[5;7;31m' == get_code_v2(Colors.Red, blink=True, reverse=True)
+    
+    assert '\033[1;4;5;31m' == get_code_v2(Colors.Red, bold=True, underline=True, blink=True)
+    assert '\033[1;4;7;31m' == get_code_v2(Colors.Red, bold=True, underline=True, reverse=True)
+    assert '\033[1;5;7;31m' == get_code_v2(Colors.Red, bold=True, blink=True, reverse=True)
+    assert '\033[1;4;5;7;31m' == get_code_v2(Colors.Red, bold=True, underline=True, blink=True, reverse=True)
+
+def test_colorize_v2():
+    assert (
+        get_code(Colors.Red)
+        + "Hi there"
+        + get_code(None)
+    ) == colorize("Hi there", Colors.Red)
+
+    assert (
+        "H"
+        + get_code(Colors.Red)
+        + "i ther"
+        + get_code(None)
+        + "e"
+    ) == colorize("Hi there", Colors.Red, start=1, end=7)

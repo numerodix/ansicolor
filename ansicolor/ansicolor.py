@@ -18,8 +18,10 @@ __all__ = [  # noqa
     'yellow',
 
     'colorize',
+    'colorize_v2',
     'wrap_string',
     'get_code',
+    'get_code_v2',
 
     'highlight_string',
     'get_highlighter',
@@ -454,3 +456,61 @@ def write_err(s):
     """
 
     write_to(sys.stderr, s)
+
+def get_code_v2(color, bold=False, reverse=False, underline=False, blink=False):
+    """
+    Returns the escape code for styling with the given color,
+    in bold and/or reverse.
+    :param color: The color to use.
+    :type color: :class:`Colors` class
+    :param bool bold: Whether to mark up in bold.
+    :param bool underline: Whether to mark up in underline.
+    :param bool blink: Whether to mark up in blink.
+    :param bool reverse: Whether to mark up in reverse video.
+    :rtype: string
+    """
+
+    if _disabled:
+        return ""
+
+    fmt = '0'
+    l = []
+    if bold: l.append('1')
+    if underline: l.append('4')
+    if blink: l.append('5')
+    if reverse: l.append('7')
+    if len(l) != 0:
+        fmt = ';'.join(l)
+
+    color = (color is not None) and ';3%s' % color.id or ''
+
+    return '\033[' + fmt + color + 'm'
+
+def colorize_v2(s, color, bold=False, reverse=False, underline=False, blink=False,
+    start=None, end=None):
+    """
+    Colorize a string with the color given.
+    :param string s: The string to colorize.
+    :param color: The color to use.
+    :type color: :class:`Colors` class
+    :param bool bold: Whether to mark up in bold.
+    :param bool reverse: Whether to mark up in reverse video.
+    :param bool blink: Whether to mark up in blink.
+    :param bool reverse: Whether to mark up in reverse video.
+    :param int start: Index at which to start coloring.
+    :param int end: Index at which to end coloring.
+    :rtype: string
+    """
+
+    start = start if start else 0
+    end = end if end else len(s)
+
+    before = s[:start]
+    between = s[start:end]
+    after = s[end:]
+
+    return ("%s%s%s%s%s" % (before,
+                            get_code_v2(color, bold=bold, reverse=reverse),
+                            between,
+                            get_code_v2(None),
+                            after))
