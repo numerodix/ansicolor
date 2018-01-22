@@ -5,6 +5,7 @@ import sys
 
 from ansicolor.ansicolor import Colors
 from ansicolor.ansicolor import colorize
+from ansicolor.ansicolor import colorize_v2
 from ansicolor.ansicolor import colordiff
 from ansicolor.ansicolor import get_highlighter
 from ansicolor.ansicolor import highlight_string
@@ -48,6 +49,48 @@ def demo_color():
             write_out('%s  ' % item)
         write_out("\n")
 
+def demo_color_v2():
+    width = 10
+
+    lst = []
+
+    lst.extend([[], ['>>> Without colors'], []])
+    line = []
+    line.append(colorize_v2("Standard".ljust(width), None))
+    line.append(colorize_v2("Bold".ljust(width), None, bold=True))
+    line.append(colorize_v2("Underline".ljust(width), None, underline=True))
+    line.append(colorize_v2("Blink".ljust(width), None, blink=True))
+    line.append(colorize_v2("Reverse".ljust(width), None, reverse=True))
+    line.append(colorize_v2("Bold & Rev".ljust(width), None, bold=True, underline=True, reverse=True))  # noqa
+    lst.append(line)
+
+    lst.extend([[], ['>>> Using colors_v2'], []])
+    for color in Colors.iter():
+        line = []
+        line.append(colorize_v2(color.__name__.ljust(width), color))
+        line.append(colorize_v2(color.__name__.ljust(width), color, bold=True))  # noqa
+        line.append(colorize_v2(color.__name__.ljust(width), color, underline=True))  # noqa
+        line.append(colorize_v2(color.__name__.ljust(width), color, blink=True))  # noqa
+        line.append(colorize_v2(color.__name__.ljust(width), color, reverse=True))  # noqa
+        line.append(colorize_v2(color.__name__.ljust(width), color, bold=True, underline=True, reverse=True))  # noqa
+        lst.append(line)
+
+    lst.extend([[], ['>>> Using highlighting colors_v2'], []])
+    for color in Colors.iter():
+        color = get_highlighter(color.id)
+        line = []
+        line.append(colorize_v2(color.__name__.ljust(width), color))
+        line.append(colorize_v2(color.__name__.ljust(width), color, bold=True))  # noqa
+        line.append(colorize_v2(color.__name__.ljust(width), color, underline=True))  # noqa
+        line.append(colorize_v2(color.__name__.ljust(width), color, blink=True))  # noqa
+        line.append(colorize_v2(color.__name__.ljust(width), color, reverse=True))  # noqa
+        line.append(colorize_v2(color.__name__.ljust(width), color, bold=True, underline=True, reverse=True))  # noqa
+        lst.append(line)
+
+    for line in lst:
+        for item in line:
+            write_out('%s  ' % item)
+        write_out("\n")
 
 def _demo_highlight(reverse=False):
     rxs = [
@@ -118,6 +161,7 @@ if __name__ == '__main__':
 
     if action == '--color':
         demo_color()
+        demo_color_v2()
     elif action == '--highlight':
         demo_highlight()
     elif action == '--highlight-reverse':
