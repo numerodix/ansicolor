@@ -3,4 +3,5 @@ flake8
 pytest
 sphinx
 tox
+twine
 wheel
