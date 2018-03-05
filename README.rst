@@ -7,10 +7,10 @@ ansicolor
 .. image:: https://travis-ci.org/numerodix/ansicolor.png?branch=master
     :target: https://travis-ci.org/numerodix/ansicolor
 
-.. image:: https://pypip.in/wheel/ansicolor/badge.png
+.. image:: https://img.shields.io/pypi/wheel/ansicolor.svg
     :target: https://pypi.python.org/pypi/ansicolor/
 
-.. image:: https://pypip.in/license/ansicolor/badge.png
+.. image:: https://img.shields.io/pypi/l/ansicolor.svg
         :target: https://pypi.python.org/pypi/ansicolor/
 
 Python version support: CPython 2.6, 2.7, 3.2, 3.3, 3.4 and PyPy.
