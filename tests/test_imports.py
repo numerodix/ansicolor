@@ -9,6 +9,7 @@ def test_importability():
     from ansicolor import yellow  # noqa
 
     from ansicolor import Colors  # noqa
+
     Colors.Black
     Colors.Blue
     Colors.Cyan
