@@ -65,8 +65,12 @@ Setting up a development environment (Ubuntu)
     # if you don't have `mkvirtualenv` & `workon` functions in your shell
     $ sudo apt install virtualenvwrapper
 
+    # creating the virtual env the first time
     $ mkvirtualenv ansicolor
     (ansicolor) $ pip install -r dev-requirements.txt
+
+    # re-activating the virtual env next time
+    $ workon ansicolor
 
 
 Running tests
