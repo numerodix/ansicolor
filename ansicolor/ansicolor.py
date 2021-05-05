@@ -151,6 +151,7 @@ def get_code_v2(color, bold=False, reverse=False, underline=False, blink=False):
     """
     Returns the escape code for styling with the given color,
     in bold and/or reverse.
+
     :param color: The color to use.
     :type color: :class:`Colors` class
     :param bool bold: Whether to mark up in bold.
@@ -223,6 +224,7 @@ def colorize_v2(
 ):
     """
     Colorize a string with the color given.
+
     :param string s: The string to colorize.
     :param color: The color to use.
     :type color: :class:`Colors` class
