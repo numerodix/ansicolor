@@ -150,6 +150,10 @@ Finally:
 
 1. Merge ``develop`` into ``master``.
 
+Post-release verification:
+
+1. ``pip install -U ansicolor`` from PyPI and use a tool that uses it.
+
 
 .. _`documentation`: https://ansicolor.readthedocs.org/
 .. _`tarballs from Github`: https://github.com/numerodix/ansicolor/tags
