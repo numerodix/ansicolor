@@ -2,10 +2,16 @@ Release notes
 =============
 
 
+0.3.2
+-----
+
+- Fixed malformed docstrings for :func:`ansicolor.get_code_v2` and
+  :func:`ansicolor.colorize_v2`.
+
 0.3.1
 -----
 
-- Updating changelog (belatedly).
+- Updated changelog (belatedly).
 
 0.3.0
 -----
@@ -15,10 +21,10 @@ Release notes
 0.2.6
 -----
 
-- New :func:`ansicolor.get_code_v2` which mirrors :func:`ansicolor.get_code` but also
-  allows passing ``underline`` and ``blink``.
-- New :func:`ansicolor.colorize_v2` which mirrors :func:`ansicolor.colorize` but also
-  allows passing ``underline`` and ``blink``.
+- New :func:`ansicolor.get_code_v2` which mirrors :func:`ansicolor.get_code`
+  but also allows passing ``underline`` and ``blink``.
+- New :func:`ansicolor.colorize_v2` which mirrors :func:`ansicolor.colorize`
+  but also allows passing ``underline`` and ``blink``.
 
 0.2.4
 -----
