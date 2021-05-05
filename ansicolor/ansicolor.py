@@ -398,7 +398,7 @@ def colordiff(x, y, color_x=Colors.Cyan, color_y=Colors.Green, debug=False):
 
     def log(s):
         if debug:
-            print(s)
+            print(s)  # pragma: no cover
 
     seq = compute_seq(x, y)
     log(">>>  %s , %s  -> %s" % (x, y, seq))
