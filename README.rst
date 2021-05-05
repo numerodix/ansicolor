@@ -75,6 +75,9 @@ All the steps below assume you have an activated virtual env (even though the
 Running unit tests
 ^^^^^^^^^^^^^^^^^^
 
+The tests expect the environment variable ``TERM`` to be set, and to a value
+that is not ``dumb``. If this is not the case tests will fail.
+
 .. code:: bash
 
     $ py.test
