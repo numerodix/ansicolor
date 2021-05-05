@@ -137,6 +137,10 @@ Quality assurance (see steps above for how to):
 4. Make sure ``flake8`` checker passes.
 5. Make sure ``black`` formatter has no changes to make.
 
+Doc updates:
+
+1. Update ``docs/src/changes.rst``.
+
 Doing a release:
 
 1. Bump version in ``ansicolor/__init__.py``.

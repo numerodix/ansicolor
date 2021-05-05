@@ -2,6 +2,19 @@ Release notes
 =============
 
 
+0.3.0
+-----
+
+- Dropped support for Python 2.6.
+
+0.2.6
+-----
+
+- New :func:`ansicolor.get_code_v2` which mirrors :func:`ansicolor.get_code` but also
+  allows passing ``underline`` and ``blink``.
+- New :func:`ansicolor.colorize_v2` which mirrors :func:`ansicolor.colorize` but also
+  allows passing ``underline`` and ``blink``.
+
 0.2.4
 -----
 
