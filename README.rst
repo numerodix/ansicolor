@@ -89,7 +89,7 @@ Measuring code coverage
 
 .. code:: bash
 
-    $ py.test --cov=ansicolor
+    $ py.test --cov=ansicolor.ansicolor
     $ coverage html
     # open htmlcov/index.html in the browser
 
