@@ -73,8 +73,8 @@ Setting up a development environment (Ubuntu)
     $ workon ansicolor
 
 
-Running tests
-^^^^^^^^^^^^^
+Running unit tests
+^^^^^^^^^^^^^^^^^^
 
 .. code:: bash
 
@@ -89,3 +89,19 @@ Measuring code coverage
     $ py.test --cov=ansicolor
     $ coverage html
     # open htmlcov/index.html in the browser
+
+
+Running all possible tests under tox
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+We use `tox` to run both the unit tests and the demos under several different
+Python interpreter versions. Depending on which interpreters you have installed
+(this is managed system-wide and not covered in this README) `tox` will most
+likely give you a partial success:
+
+.. code:: bash
+
+    $ tox
+
+    # to run it only against selected interpreters
+    $ tox -e py27,py38
