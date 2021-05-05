@@ -50,3 +50,38 @@ Take a look at the ``demos`` to see what's possible.
 
 
 .. _`documentation`: https://ansicolor.readthedocs.org/
+
+
+
+Maintenance tasks
+-----------------
+
+
+Setting up a development environment (Ubuntu)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code:: bash
+
+    # if you don't have `mkvirtualenv` & `workon` functions in your shell
+    $ sudo apt install virtualenvwrapper
+
+    $ mkvirtualenv ansicolor
+    (ansicolor) $ pip install -r dev-requirements.txt
+
+
+Running tests
+^^^^^^^^^^^^^
+
+.. code:: bash
+
+    $ py.test
+
+
+Measuring code coverage
+^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code:: bash
+
+    $ py.test --cov=ansicolor
+    $ coverage html
+    # open htmlcov/index.html in the browser
