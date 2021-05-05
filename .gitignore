@@ -7,5 +7,6 @@ build/
 dist/
 docs/_build/
 htmlcov/
+ve/
 
 .vscode/
