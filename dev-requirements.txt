@@ -3,6 +3,7 @@ flake8
 ipdb
 pytest
 pytest-cov
+pytest-randomly
 sphinx
 tox
 wheel
