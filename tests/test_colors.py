@@ -107,6 +107,41 @@ def test_get_hightlighter():
     assert Colors.Yellow == get_highlighter(1)
 
 
+def test_highlight_string_four_layers():
+    text = "aaabbbcccdddeeefffeeedddcccbbbaaa"
+    spanlists = [
+        [(3, 30)],
+        [(6, 27)],
+        [(9, 24)],
+        [(12, 21)],
+    ]
+    colors = [
+        Colors.Green,
+        Colors.Yellow,
+        Colors.Cyan,
+        Colors.Blue,
+    ]
+
+    assert (
+        'aaa'
+        + get_code(Colors.Green)
+        + 'bbb'
+        + get_code(Colors.Yellow, bold=True)
+        + 'ccc'
+        + get_code(Colors.Cyan, reverse=True)
+        + 'ddd'
+        + get_code(Colors.Blue, bold=True, reverse=True)
+        + 'eeefffeee'
+        + get_code(Colors.Cyan, reverse=True)
+        + 'ddd'
+        + get_code(Colors.Yellow, bold=True)
+        + 'ccc'
+        + get_code(Colors.Green)
+        + 'bbb'
+        + get_code(None)
+        + 'aaa'
+    ) == highlight_string(text, *spanlists, colors=colors)
+
 def test_highlight_string__more_spans_than_colors():
     first_highlighter = get_highlighter(0)
     assert (
