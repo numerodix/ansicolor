@@ -4,9 +4,6 @@ ansicolor
 .. image:: https://badge.fury.io/py/ansicolor.png
         :target: https://badge.fury.io/py/ansicolor
 
-.. image:: https://travis-ci.org/numerodix/ansicolor.png?branch=master
-    :target: https://travis-ci.org/numerodix/ansicolor
-
 .. image:: https://img.shields.io/pypi/wheel/ansicolor.svg
     :target: https://pypi.python.org/pypi/ansicolor/
 
