@@ -12,6 +12,7 @@ from ansicolor import strip_escapes
 from ansicolor import wrap_string
 from ansicolor import get_code_v2
 from ansicolor import colorize_v2
+from ansicolor import highlight_string
 from ansicolor import set_term_title
 from ansicolor import write_out
 from ansicolor import write_err
@@ -100,10 +101,21 @@ def test_coloring():
     assert '\033[0;0;31m' + 'hi' + '\033[0;0m' == red('hi')
 
 
-def test_highlights():
+def test_get_hightlighter():
     # can I get a highlighter?
     assert Colors.Green == get_highlighter(0)
     assert Colors.Yellow == get_highlighter(1)
+
+
+def test_highlight_string__more_spans_than_colors():
+    first_highlighter = get_highlighter(0)
+    assert (
+        'aaa'
+        + get_code(first_highlighter)
+        + 'bbb'
+        + get_code(None)
+        + 'aaa'
+    ) == highlight_string("aaabbbaaa", [(3,6)], colors=[])
 
 
 def test_colorize():
