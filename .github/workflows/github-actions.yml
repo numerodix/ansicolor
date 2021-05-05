@@ -14,10 +14,6 @@ jobs:
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
-
-
-      - run: ls
-      - run: pwd
       - run: pip3 install -r dev-requirements.txt
       - run: py.test
+      - run: echo "🍏 This job's status is ${{ job.status }}."
