@@ -126,7 +126,8 @@ Re-formatting code
 Release a new version
 ^^^^^^^^^^^^^^^^^^^^^
 
-1. Make sure ``develop`` branch is in sync with ``master``.
+1. Before starting work on a change/fix/whatever, make sure there is no
+   unfinished work on ``develop`` and merge ``master`` into ``develop``.
 2. Make all the changes on ``develop``.
 
 Quality assurance (see steps above for how to):
