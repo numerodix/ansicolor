@@ -164,7 +164,7 @@ def test_strip_escapes():
     ) == "Hi there, stranger"
 
 
-def test_colordiff():
+def test_colordiff_different():
     x, y = colordiff("hi bob", "hi there",
                      color_x=Colors.Red, color_y=Colors.Blue)
 
@@ -173,6 +173,16 @@ def test_colordiff():
 
     assert x == "hi " + fx("b") + fx("o") + fx("b")
     assert y == "hi " + fy("t") + fy("h") + fy("e") + fy("r") + fy("e")
+
+def test_colordiff_edited():
+    x, y = colordiff("hi bobby", "hi bob",
+                     color_x=Colors.Red, color_y=Colors.Blue)
+
+    fx = lambda s: red(s, reverse=True)
+    fy = lambda s: blue(s, reverse=True)
+
+    assert x == "hi bob" + fx("b") + fx("y")
+    assert y == "hi bob"
 
 
 def test_justify_formatted():
