@@ -80,14 +80,14 @@ def test_highlights():
     assert Colors.Yellow == get_highlighter(1)
 
 
-def test_colorize1():
+def test_colorize():
     assert (
         get_code(Colors.Red)
         + "Hi there"
         + get_code(None)
     ) == colorize("Hi there", Colors.Red)
 
-def test_colorize2():
+def test_colorize_with_start_end():
     assert (
         "H"
         + get_code(Colors.Red)
@@ -98,18 +98,18 @@ def test_colorize2():
 
 def test_colorize_v2():
     assert (
-        get_code(Colors.Red)
+        get_code_v2(Colors.Red)
         + "Hi there"
-        + get_code(None)
-    ) == colorize("Hi there", Colors.Red)
+        + get_code_v2(None)
+    ) == colorize_v2("Hi there", Colors.Red)
 
     assert (
         "H"
-        + get_code(Colors.Red)
+        + get_code_v2(Colors.Red)
         + "i ther"
-        + get_code(None)
+        + get_code_v2(None)
         + "e"
-    ) == colorize("Hi there", Colors.Red, start=1, end=7)
+    ) == colorize_v2("Hi there", Colors.Red, start=1, end=7)
 
 
 def test_wrap_string():
