@@ -109,3 +109,11 @@ likely give you a partial success.
 
     # to run only against selected interpreters
     $ tox -e py27,py38
+
+
+Checking code style
+^^^^^^^^^^^^^^^^^^^
+
+.. code:: bash
+
+    $ flake8 ansicolor
