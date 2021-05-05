@@ -72,6 +72,9 @@ Setting up a development environment (Ubuntu)
     # re-activating the virtual env next time
     $ workon ansicolor
 
+All the steps below assume you have an activated virtual env (even though the
+``(ansicolor)`` prompt is not shown).
+
 
 Running unit tests
 ^^^^^^^^^^^^^^^^^^
