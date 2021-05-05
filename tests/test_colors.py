@@ -143,6 +143,11 @@ def test_wrap_string():
         + "there"
     ) == wrap_string("Hi there", 3, Colors.Red)
 
+def test_wrap_string_disabled():
+    with disabled_state():
+        assert "Hi|there" == wrap_string("Hi there", 3, Colors.Red)
+        assert "|i there" == wrap_string("Hi there", 0, Colors.Red)
+
 
 def test_strip_escapes():
     assert "Hi there" == strip_escapes(
