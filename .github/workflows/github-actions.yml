@@ -1,8 +1,10 @@
 name: ansicolor github actions CI
 on: [push]
 jobs:
-  Run-unit-tests:
+  run-unit-tests:
     runs-on: ubuntu-latest
     steps:
+      - run: ls
+      - run: pwd
       - run: pip3 install -r dev-requirements.txt
       - run: py.test
