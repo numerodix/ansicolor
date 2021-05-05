@@ -13,6 +13,8 @@ from ansicolor import wrap_string
 from ansicolor import get_code_v2
 from ansicolor import colorize_v2
 from ansicolor import set_term_title
+from ansicolor import write_out
+from ansicolor import write_err
 import ansicolor
 
 
@@ -187,3 +189,25 @@ def test_set_term_title(capsys):
 
     captured = capsys.readouterr()
     assert '\033]2;ansicolor demo\007' == captured.out
+
+
+def test_write_out(capfd):
+    text = colorize("Hi there", Colors.Red, start=3, end=6)
+
+    # escapes will be stripped since we rely on capfd and os.isatty detects a
+    # tty device on the other end
+    write_out(text)
+
+    captured = capfd.readouterr()
+    assert 'Hi there' == captured.out
+
+
+def test_write_err(capfd):
+    text = colorize("Hi there", Colors.Red, start=3, end=6)
+
+    # escapes will be stripped since we rely on capfd and os.isatty detects a
+    # tty device on the other end
+    write_err(text)
+
+    captured = capfd.readouterr()
+    assert 'Hi there' == captured.err
