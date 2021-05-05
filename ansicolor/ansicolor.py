@@ -477,7 +477,7 @@ def strip_escapes(s):
     :rtype: string
     """
 
-    return re.sub('\033[[](?:(?:[0-9]*;)*)(?:[0-9]*m)', '', s)
+    return re.sub('\033\[(?:(?:[0-9]*;)*)(?:[0-9]*m)', '', s)
 
 
 ## Output functions
