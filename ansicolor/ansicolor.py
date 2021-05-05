@@ -62,7 +62,8 @@ class Colors(object):
         for color in cls._colorlist:
             yield color
 
-## Define Colors members
+
+# Define Colors members
 Colors.new("Black")
 Colors.new("Red")
 Colors.new("Green")
@@ -73,7 +74,7 @@ Colors.new("Cyan")
 Colors.new("White")
 
 
-## Define coloring shorthands
+# Define coloring shorthands
 def make_func(color):
     def f(s, bold=False, reverse=False):
         return colorize(s, color, bold=bold, reverse=reverse)
@@ -87,11 +88,12 @@ def make_func(color):
     """ % color.__name__.lower()
     return f
 
+
 for color in Colors.iter():
     globals()[color.__name__.lower()] = make_func(color)
 
 
-## Define highlighting colors
+# Define highlighting colors
 highlights = [
     Colors.Green,
     Colors.Yellow,
@@ -106,7 +108,7 @@ for (n, h) in enumerate(highlights):
     highlight_map[n] = [color for color in Colors.iter() if h == color].pop()
 
 
-## Coloring functions
+# Coloring functions
 def get_highlighter(colorid):
     """
     Map a color index to a highlighting color.
@@ -143,7 +145,8 @@ def get_code(color, bold=False, reverse=False):
 
     return '\033[' + fmt + color + 'm'
 
-def get_code_v2(color, bold=False, reverse=False, underline=False, blink=False):
+def get_code_v2(color, bold=False, reverse=False, underline=False,
+                blink=False):
     """
     Returns the escape code for styling with the given color,
     in bold and/or reverse.
@@ -160,13 +163,17 @@ def get_code_v2(color, bold=False, reverse=False, underline=False, blink=False):
         return ""
 
     fmt = '0'
-    l = []
-    if bold: l.append('1')
-    if underline: l.append('4')
-    if blink: l.append('5')
-    if reverse: l.append('7')
-    if len(l) != 0:
-        fmt = ';'.join(l)
+    items = []
+    if bold:
+        items.append('1')
+    if underline:
+        items.append('4')
+    if blink:
+        items.append('5')
+    if reverse:
+        items.append('7')
+    if len(items) != 0:
+        fmt = ';'.join(items)
 
     color = (color is not None) and ';3%s' % color.id or ''
 
@@ -199,8 +206,8 @@ def colorize(s, color, bold=False, reverse=False, start=None, end=None):
                             get_code(None),
                             after))
 
-def colorize_v2(s, color, bold=False, reverse=False, underline=False, blink=False,
-    start=None, end=None):
+def colorize_v2(s, color, bold=False, reverse=False, underline=False,
+                blink=False, start=None, end=None):
     """
     Colorize a string with the color given.
     :param string s: The string to colorize.
@@ -223,10 +230,13 @@ def colorize_v2(s, color, bold=False, reverse=False, underline=False, blink=Fals
     after = s[end:]
 
     return ("%s%s%s%s%s" % (before,
-                            get_code_v2(color, bold=bold, 
-                                underline=underline, 
-                                blink=blink, 
-                                reverse=reverse),
+                            get_code_v2(
+                                color,
+                                bold=bold,
+                                underline=underline,
+                                blink=blink,
+                                reverse=reverse
+                            ),
                             between,
                             get_code_v2(None),
                             after))
@@ -389,11 +399,13 @@ def colordiff(x, y, color_x=Colors.Cyan, color_y=Colors.Green, debug=False):
 
     def make_generator(it):
         g = ((i, e) for (i, e) in enumerate(it))
+
         def f():
             try:
                 return next(g)
             except StopIteration:
                 return (-1, None)
+
         return f
 
     def log(s):
@@ -480,7 +492,7 @@ def strip_escapes(s):
     return re.sub('\033\[(?:(?:[0-9]*;)*)(?:[0-9]*m)', '', s)
 
 
-## Output functions
+# Output functions
 def set_term_title(s):
     """
     Set the title of a terminal window.

@@ -82,12 +82,12 @@ def test_codes_v2():
     assert '\033[1;4;31m' == get_code_v2(Colors.Red, bold=True, underline=True)
     assert '\033[1;5;31m' == get_code_v2(Colors.Red, bold=True, blink=True)
     assert '\033[1;7;31m' == get_code_v2(Colors.Red, bold=True, reverse=True)
-    
+
     assert '\033[4;5;31m' == get_code_v2(Colors.Red, underline=True, blink=True)
     assert '\033[4;7;31m' == get_code_v2(Colors.Red, underline=True, reverse=True)
-    
+
     assert '\033[5;7;31m' == get_code_v2(Colors.Red, blink=True, reverse=True)
-    
+
     assert '\033[1;4;5;31m' == get_code_v2(Colors.Red, bold=True, underline=True, blink=True)
     assert '\033[1;4;7;31m' == get_code_v2(Colors.Red, bold=True, underline=True, reverse=True)
     assert '\033[1;5;7;31m' == get_code_v2(Colors.Red, bold=True, blink=True, reverse=True)
@@ -272,9 +272,9 @@ def test_strip_escapes():
     )
 
     assert strip_escapes(
-        colorize("Hi", None, bold=True) +
-        " there, " +
-        colorize("stranger", Colors.Green, bold=True)
+        colorize("Hi", None, bold=True)
+        + " there, "
+        + colorize("stranger", Colors.Green, bold=True)
     ) == "Hi there, stranger"
 
 
@@ -282,8 +282,11 @@ def test_colordiff_different():
     x, y = colordiff("hi bob", "hi there",
                      color_x=Colors.Red, color_y=Colors.Blue)
 
-    fx = lambda s: red(s, reverse=True)
-    fy = lambda s: blue(s, reverse=True)
+    def fx(s):
+        return red(s, reverse=True)
+
+    def fy(s):
+        return blue(s, reverse=True)
 
     assert x == "hi " + fx("b") + fx("o") + fx("b")
     assert y == "hi " + fy("t") + fy("h") + fy("e") + fy("r") + fy("e")
@@ -292,8 +295,8 @@ def test_colordiff_edited():
     x, y = colordiff("hi bobby", "hi bob",
                      color_x=Colors.Red, color_y=Colors.Blue)
 
-    fx = lambda s: red(s, reverse=True)
-    fy = lambda s: blue(s, reverse=True)
+    def fx(s):
+        return red(s, reverse=True)
 
     assert x == "hi bob" + fx("b") + fx("y")
     assert y == "hi bob"
