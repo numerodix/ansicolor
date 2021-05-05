@@ -149,7 +149,7 @@ def test_highlight_string_nocolor():
         + 'aaa'
     ) == highlight_string(text, *spanlists, nocolor=True)
 
-def test_highlight_string_four_layers():
+def test_highlight_string_four_layers_inside_out():
     text = "aaabbbcccdddeeefffeeedddcccbbbaaa"
     spanlists = [
         [(3, 30)],
@@ -182,6 +182,41 @@ def test_highlight_string_four_layers():
         + 'bbb'
         + get_code(None)
         + 'aaa'
+    ) == highlight_string(text, *spanlists, colors=colors)
+
+def test_highlight_string_four_layers_outside_in():
+    text = 'fffeeedddcccbbbaaabbbcccdddeeefff'
+    spanlists = [
+        [(12, 21)],
+        [(9, 24)],
+        [(6, 27)],
+        [(3, 30)]
+    ]
+    colors = [
+        Colors.Green,
+        Colors.Yellow,
+        Colors.Cyan,
+        Colors.Blue,
+    ]
+
+    assert (
+        'fff'
+        + get_code(Colors.Blue)
+        + 'eee'
+        + get_code(Colors.Blue, bold=True)
+        + 'ddd'
+        + get_code(Colors.Blue, reverse=True)
+        + 'ccc'
+        + get_code(Colors.Blue, bold=True, reverse=True)
+        + 'bbbaaabbb'
+        + get_code(Colors.Blue, reverse=True)
+        + 'ccc'
+        + get_code(Colors.Blue, bold=True)
+        + 'ddd'
+        + get_code(Colors.Blue)
+        + 'eee'
+        + get_code(None)
+        + 'fff'
     ) == highlight_string(text, *spanlists, colors=colors)
 
 
