@@ -94,14 +94,15 @@ Measuring code coverage
 Running all possible tests under tox
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-We use `tox` to run both the unit tests and the demos under several different
+We use ``tox`` to run both the unit tests and the demos under several different
 Python interpreter versions. Depending on which interpreters you have installed
-(this is managed system-wide and not covered in this README) `tox` will most
-likely give you a partial success:
+(this is managed system-wide and not covered in this README) ``tox`` will most
+likely give you a partial success.
 
 .. code:: bash
 
+    # to run against all interpreters
     $ tox
 
-    # to run it only against selected interpreters
+    # to run only against selected interpreters
     $ tox -e py27,py38
