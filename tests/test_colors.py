@@ -1,3 +1,5 @@
+import contextlib
+
 from ansicolor import Colors
 from ansicolor import blue
 from ansicolor import colordiff
@@ -10,6 +12,19 @@ from ansicolor import strip_escapes
 from ansicolor import wrap_string
 from ansicolor import get_code_v2
 from ansicolor import colorize_v2
+import ansicolor
+
+
+@contextlib.contextmanager
+def disabled_state():
+    ansicolor.ansicolor._disabled = True
+
+    try:
+        # run the test with colors disabled
+        yield
+
+    finally:
+        ansicolor.ansicolor._disabled = False
 
 
 def test_codes():
@@ -34,6 +49,10 @@ def test_codes():
 
     # bold + reverse color
     assert '\033[1;7;31m' == get_code(Colors.Red, bold=True, reverse=True)
+
+def test_codes_disabled():
+    with disabled_state():
+        assert '' == get_code(Colors.Black)
 
 def test_codes_v2():
     # reset code
@@ -69,6 +88,10 @@ def test_codes_v2():
     assert '\033[1;4;7;31m' == get_code_v2(Colors.Red, bold=True, underline=True, reverse=True)
     assert '\033[1;5;7;31m' == get_code_v2(Colors.Red, bold=True, blink=True, reverse=True)
     assert '\033[1;4;5;7;31m' == get_code_v2(Colors.Red, bold=True, underline=True, blink=True, reverse=True)
+
+def test_codes_v2_disabled():
+    with disabled_state():
+        assert '' == get_code_v2(Colors.Black)
 
 def test_coloring():
     assert '\033[0;0;31m' + 'hi' + '\033[0;0m' == red('hi')
