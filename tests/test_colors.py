@@ -19,6 +19,16 @@ from ansicolor import write_out
 import ansicolor
 
 
+@contextlib.contextmanager
+def disabled_state():
+    ansicolor.ansicolor._disabled = True
+
+    try:
+        # run the test with colors disabled
+        yield
+
+    finally:
+        ansicolor.ansicolor._disabled = False
 
 
 def test_codes():
@@ -45,6 +55,9 @@ def test_codes():
     assert "\033[1;7;31m" == get_code(Colors.Red, bold=True, reverse=True)
 
 
+def test_codes_disabled():
+    with disabled_state():
+        assert "" == get_code(Colors.Black)
 
 
 def test_codes_v2():
@@ -91,6 +104,9 @@ def test_codes_v2():
     )
 
 
+def test_codes_v2_disabled():
+    with disabled_state():
+        assert "" == get_code_v2(Colors.Black)
 
 
 def test_coloring():
@@ -231,6 +247,10 @@ def test_wrap_string():
     )
 
 
+def test_wrap_string_disabled():
+    with disabled_state():
+        assert "Hi|there" == wrap_string("Hi there", 3, Colors.Red)
+        assert "|i there" == wrap_string("Hi there", 0, Colors.Red)
 
 
 def test_strip_escapes():
