@@ -30,33 +30,28 @@ from ansicolor.ansicolor import Colors
 
 
 __all__ = [
-    'black',
-    'blue',
-    'cyan',
-    'green',
-    'magenta',
-    'red',
-    'white',
-    'yellow',
-
-    'colorize',
-    'colorize_v2',
-    'get_code',
-    'get_code_v2',
-    'wrap_string',
-
-    'highlight_string',
-    'get_highlighter',
-
-    'strip_escapes',
-    'justify_formatted',
-
-    'colordiff',
-    'set_term_title',
-    'write_out',
-    'write_err',
-
-    'Colors',
+    "black",
+    "blue",
+    "cyan",
+    "green",
+    "magenta",
+    "red",
+    "white",
+    "yellow",
+    "colorize",
+    "colorize_v2",
+    "get_code",
+    "get_code_v2",
+    "wrap_string",
+    "highlight_string",
+    "get_highlighter",
+    "strip_escapes",
+    "justify_formatted",
+    "colordiff",
+    "set_term_title",
+    "write_out",
+    "write_err",
+    "Colors",
 ]
 
 __major_version__ = "0.3"

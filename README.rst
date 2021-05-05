@@ -117,3 +117,11 @@ Checking code style
 .. code:: bash
 
     $ flake8 ansicolor
+
+
+Re-formatting code
+^^^^^^^^^^^^^^^^^^
+
+.. code:: bash
+
+    $ black ansicolor tests

@@ -8,33 +8,28 @@ import warnings
 
 
 __all__ = [  # noqa
-    'black',
-    'blue',
-    'cyan',
-    'green',
-    'magenta',
-    'red',
-    'white',
-    'yellow',
-
-    'colorize',
-    'colorize_v2',
-    'wrap_string',
-    'get_code',
-    'get_code_v2',
-
-    'highlight_string',
-    'get_highlighter',
-
-    'strip_escapes',
-    'justify_formatted',
-
-    'colordiff',
-    'set_term_title',
-    'write_out',
-    'write_err',
-
-    'Colors',
+    "black",
+    "blue",
+    "cyan",
+    "green",
+    "magenta",
+    "red",
+    "white",
+    "yellow",
+    "colorize",
+    "colorize_v2",
+    "wrap_string",
+    "get_code",
+    "get_code_v2",
+    "highlight_string",
+    "get_highlighter",
+    "strip_escapes",
+    "justify_formatted",
+    "colordiff",
+    "set_term_title",
+    "write_out",
+    "write_err",
+    "Colors",
 ]
 
 
@@ -43,7 +38,8 @@ _disabled = (not os.environ.get("TERM")) or (os.environ.get("TERM") == "dumb")
 
 
 class Colors(object):
-    '''Container class for colors'''
+    """Container class for colors"""
+
     @classmethod
     def new(cls, colorname):
         try:
@@ -78,14 +74,18 @@ Colors.new("White")
 def make_func(color):
     def f(s, bold=False, reverse=False):
         return colorize(s, color, bold=bold, reverse=reverse)
-    f.__doc__ = """
+
+    f.__doc__ = (
+        """
     Colorize string in %s
 
     :param string s: The string to colorize.
     :param bool bold: Whether to mark up in bold.
     :param bool reverse: Whether to mark up in reverse video.
     :rtype: string
-    """ % color.__name__.lower()
+    """
+        % color.__name__.lower()
+    )
     return f
 
 
@@ -100,7 +100,7 @@ highlights = [
     Colors.Cyan,
     Colors.Blue,
     Colors.Magenta,
-    Colors.Red
+    Colors.Red,
 ]
 
 highlight_map = {}
@@ -119,6 +119,7 @@ def get_highlighter(colorid):
 
     return highlight_map[colorid % len(highlights)]
 
+
 def get_code(color, bold=False, reverse=False):
     """
     Returns the escape code for styling with the given color,
@@ -134,19 +135,19 @@ def get_code(color, bold=False, reverse=False):
     if _disabled:
         return ""
 
-    fmt = '0;0'
+    fmt = "0;0"
     if bold and reverse:
-        fmt = '1;7'
+        fmt = "1;7"
     elif reverse:
-        fmt = '0;7'
+        fmt = "0;7"
     elif bold:
-        fmt = '0;1'
-    color = (color is not None) and ';3%s' % color.id or ''
+        fmt = "0;1"
+    color = (color is not None) and ";3%s" % color.id or ""
 
-    return '\033[' + fmt + color + 'm'
+    return "\033[" + fmt + color + "m"
 
-def get_code_v2(color, bold=False, reverse=False, underline=False,
-                blink=False):
+
+def get_code_v2(color, bold=False, reverse=False, underline=False, blink=False):
     """
     Returns the escape code for styling with the given color,
     in bold and/or reverse.
@@ -162,22 +163,23 @@ def get_code_v2(color, bold=False, reverse=False, underline=False,
     if _disabled:
         return ""
 
-    fmt = '0'
+    fmt = "0"
     items = []
     if bold:
-        items.append('1')
+        items.append("1")
     if underline:
-        items.append('4')
+        items.append("4")
     if blink:
-        items.append('5')
+        items.append("5")
     if reverse:
-        items.append('7')
+        items.append("7")
     if len(items) != 0:
-        fmt = ';'.join(items)
+        fmt = ";".join(items)
 
-    color = (color is not None) and ';3%s' % color.id or ''
+    color = (color is not None) and ";3%s" % color.id or ""
 
-    return '\033[' + fmt + color + 'm'
+    return "\033[" + fmt + color + "m"
+
 
 def colorize(s, color, bold=False, reverse=False, start=None, end=None):
     """
@@ -200,14 +202,25 @@ def colorize(s, color, bold=False, reverse=False, start=None, end=None):
     between = s[start:end]
     after = s[end:]
 
-    return ("%s%s%s%s%s" % (before,
-                            get_code(color, bold=bold, reverse=reverse),
-                            between,
-                            get_code(None),
-                            after))
+    return "%s%s%s%s%s" % (
+        before,
+        get_code(color, bold=bold, reverse=reverse),
+        between,
+        get_code(None),
+        after,
+    )
 
-def colorize_v2(s, color, bold=False, reverse=False, underline=False,
-                blink=False, start=None, end=None):
+
+def colorize_v2(
+    s,
+    color,
+    bold=False,
+    reverse=False,
+    underline=False,
+    blink=False,
+    start=None,
+    end=None,
+):
     """
     Colorize a string with the color given.
     :param string s: The string to colorize.
@@ -229,17 +242,15 @@ def colorize_v2(s, color, bold=False, reverse=False, underline=False,
     between = s[start:end]
     after = s[end:]
 
-    return ("%s%s%s%s%s" % (before,
-                            get_code_v2(
-                                color,
-                                bold=bold,
-                                underline=underline,
-                                blink=blink,
-                                reverse=reverse
-                            ),
-                            between,
-                            get_code_v2(None),
-                            after))
+    return "%s%s%s%s%s" % (
+        before,
+        get_code_v2(
+            color, bold=bold, underline=underline, blink=blink, reverse=reverse
+        ),
+        between,
+        get_code_v2(None),
+        after,
+    )
 
 
 def wrap_string(s, pos, color, bold=False, reverse=False):
@@ -263,12 +274,14 @@ def wrap_string(s, pos, color, bold=False, reverse=False):
     if _disabled:
         if pos == 0:
             pos = 1
-        return s[:pos - 1] + "|" + s[pos:]
+        return s[: pos - 1] + "|" + s[pos:]
 
-    return "%s%s%s%s" % (get_code(color, bold=bold, reverse=reverse),
-                         s[:pos],
-                         get_code(None),
-                         s[pos:])
+    return "%s%s%s%s" % (
+        get_code(color, bold=bold, reverse=reverse),
+        s[:pos],
+        get_code(None),
+        s[pos:],
+    )
 
 
 def highlight_string(s, *spanlists, **kw):
@@ -286,7 +299,7 @@ def highlight_string(s, *spanlists, **kw):
        The `color` parameter has been deprecated in favor of `colors`.
     """
 
-    colors = kw.get('colors', [])
+    colors = kw.get("colors", [])
 
     # pair span with color and id of the list -> (span, color, list_id)
     tuples = []
@@ -345,13 +358,13 @@ def highlight_string(s, *spanlists, **kw):
 
         # allow bold/reverse/nocolor styling as parameters
         if color:
-            if kw.get('color'):
-                color = kw.get('color')
+            if kw.get("color"):
+                color = kw.get("color")
                 warnings.warn("color is deprecated", DeprecationWarning, 2)
-            elif kw.get('nocolor'):
+            elif kw.get("nocolor"):
                 color = None
-            bold = kw.get('bold') or bold
-            reverse = kw.get('reverse') or reverse
+            bold = kw.get("bold") or bold
+            reverse = kw.get("reverse") or reverse
 
         if layer == 2:
             bold = True
@@ -367,7 +380,7 @@ def highlight_string(s, *spanlists, **kw):
         cursor = pos
     segments.append(s[cursor:])
 
-    return ''.join(segments)
+    return "".join(segments)
 
 
 def colordiff(x, y, color_x=Colors.Cyan, color_y=Colors.Green, debug=False):
@@ -392,9 +405,9 @@ def colordiff(x, y, color_x=Colors.Cyan, color_y=Colors.Green, debug=False):
         rather than the longest common subsequence, but this just causes the
         diff to show more changed characters, the result is still correct"""
         sm = difflib.SequenceMatcher(None, x, y)
-        seq = ''
+        seq = ""
         for match in sm.get_matching_blocks():
-            seq += x[match.a:match.a + match.size]
+            seq += x[match.a : match.a + match.size]
         return seq
 
     def make_generator(it):
@@ -433,31 +446,31 @@ def colordiff(x, y, color_x=Colors.Cyan, color_y=Colors.Green, debug=False):
         # character the same in all sets
         #   -> unchanged
         if s == a == b:
-            log(' %s' % s)
+            log(" %s" % s)
             (sid, s) = it_seq()
             (aid, a) = it_x()
             (bid, b) = it_y()
         # character the same in orig and common
         #   -> added in new
         elif s == a:
-            log('+%s' % b)
+            log("+%s" % b)
             y_spans.append((bid, bid + 1))
             (bid, b) = it_y()
         # character the same in new and common
         #   -> removed in orig
         elif s == b:
-            log('-%s' % a)
+            log("-%s" % a)
             x_spans.append((aid, aid + 1))
             (aid, a) = it_x()
         # character not the same (eg. case change)
         #   -> removed in orig and added in new
         elif a != b:
             if a:
-                log('-%s' % a)
+                log("-%s" % a)
                 x_spans.append((aid, aid + 1))
                 (aid, a) = it_x()
             if b:
-                log('+%s' % b)
+                log("+%s" % b)
                 y_spans.append((bid, bid + 1))
                 (bid, b) = it_y()
 
@@ -489,7 +502,7 @@ def strip_escapes(s):
     :rtype: string
     """
 
-    return re.sub('\033\[(?:(?:[0-9]*;)*)(?:[0-9]*m)', '', s)
+    return re.sub("\033\[(?:(?:[0-9]*;)*)(?:[0-9]*m)", "", s)
 
 
 # Output functions
@@ -503,6 +516,7 @@ def set_term_title(s):
     if not _disabled:
         sys.stdout.write("\033]2;%s\007" % s)
 
+
 def write_to(target, s):
     # assuming we have escapes in the string
     if not _disabled:
@@ -510,6 +524,7 @@ def write_to(target, s):
             s = strip_escapes(s)
     target.write(s)
     target.flush()
+
 
 def write_out(s):
     """
@@ -519,6 +534,7 @@ def write_out(s):
     """
 
     write_to(sys.stdout, s)
+
 
 def write_err(s):
     """
