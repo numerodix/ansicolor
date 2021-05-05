@@ -18,4 +18,6 @@ jobs:
       - run: python -m venv ve
       - run: ve/bin/pip install -r dev-requirements.txt
       - run: ve/bin/py.test -v
+        env:
+          TERM: xterm
       - run: echo "🍏 This job's status is ${{ job.status }}."
