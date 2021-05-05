@@ -12,6 +12,7 @@ from ansicolor import strip_escapes
 from ansicolor import wrap_string
 from ansicolor import get_code_v2
 from ansicolor import colorize_v2
+from ansicolor import set_term_title
 import ansicolor
 
 
@@ -179,3 +180,10 @@ def test_justify_formatted():
     assert justify_formatted(
         red("hi"), rjust, 10
     ) == "        " + red("hi")
+
+
+def test_set_term_title(capsys):
+    set_term_title('ansicolor demo')
+
+    captured = capsys.readouterr()
+    assert '\033]2;ansicolor demo\007' == captured.out
