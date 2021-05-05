@@ -1,4 +1,4 @@
-name: ansicolor github actions CI
+name: ansicolor tests
 on: [push]
 jobs:
   run-unit-tests:
