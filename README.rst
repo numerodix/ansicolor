@@ -146,6 +146,10 @@ Doing a release:
 4. ``python setup.py bdist_wheel``
 5. ``twine upload dist/*``
 
+Finally:
+
+1. Merge ``develop`` into ``master``.
+
 
 .. _`documentation`: https://ansicolor.readthedocs.org/
 .. _`tarballs from Github`: https://github.com/numerodix/ansicolor/tags
