@@ -2,6 +2,11 @@ Release notes
 =============
 
 
+0.3.3
+-----
+
+- Fixed SyntaxWarning for :func:`ansicolor.strip_escapes`.
+
 0.3.2
 -----
 
