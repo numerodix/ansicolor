@@ -55,5 +55,5 @@ __all__ = [
 ]
 
 __major_version__ = "0.3"
-__release__ = "2"
+__release__ = "3"
 __version__ = "%s.%s" % (__major_version__, __release__)
